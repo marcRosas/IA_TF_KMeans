@@ -15,13 +15,13 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 uci_tcga_url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00401/"
 archive_name = "TCGA-PANCAN-HiSeq-801x20531.tar.gz"
 
-# build the url
+
 full_download_url = urllib.parse.urljoin(uci_tcga_url, archive_name)
 
-# download the file
+
 r = urllib.request.urlretrieve (full_download_url, archive_name)
 
-# extract the data from the archive
+
 tar = tarfile.open(archive_name, "r:gz")
 tar.extractall()
 tar.close()
@@ -121,19 +121,17 @@ scat = sns.scatterplot(
 )
 
 scat.set_title(
-    "Clustering results from TCGA Pan-Cancer\nGene Expression Data"
+    "Clustering Ponderado datos de Covid \n expresion de componentes"
 )
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0)
 
 plt.show()
 
-#Tuning a K-Means Clustering Pipeline
-# Empty lists to hold evaluation metrics
+
 silhouette_scores = []
 ari_scores = []
 for n in range(2, 11):
-    # This set the number of components for pca,
-    # but leaves other steps unchanged
+
     pipe["preprocessor"]["pca"].n_components = n
     pipe.fit(data)
 
@@ -146,7 +144,7 @@ for n in range(2, 11):
         pipe["clusterer"]["kmeans"].labels_,
     )
 
-    # Add metrics to their lists
+
     silhouette_scores.append(silhouette_coef)
     ari_scores.append(ari)
 
@@ -162,6 +160,6 @@ plt.plot(range(2, 11), ari_scores, c="#fc4f30", label="ARI")
 
 plt.xlabel("n_components")
 plt.legend()
-plt.title("Clustering Performance\nas a Function of n_components")
+plt.title("Clustering de datos de Covid \n expresion de componentes")
 plt.tight_layout()
 plt.show()
